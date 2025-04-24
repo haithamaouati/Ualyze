@@ -1,14 +1,33 @@
-#!/bin/bash                                                                                                     # Author: Haitham Aouati
-# GitHub: github.com/haithamaouati
-                                                        # Text format                                           normal="\e[0m"                                          bold="\e[1m"
-faint="\e[2m"                                           underlined="\e[4m"                                      
-# Check dependencies                                    if ! command -v figlet &>/dev/null || ! command -v curl &>/dev/null || ! command -v jq &>/dev/null; then
-    echo -e "Error: figlet, curl and jq are required but not installed. Please install them and try again."
-    exit 1                                              fi                                                                                                              print_banner() {
-    clear                                                   figlet -f standard "Ualyze"                             echo -e "Analyze user-agent strings\n"                  echo -e " Author: Haitham Aouati"
-    echo -e " GitHub: ${underlined}github.com/haithamaouati${normal}\n"                                         }                                                                                                               API_URL="https://api.apicagent.com"
+#!/bin/bash
 
-show_help() {                                             print_banner                                            echo "Usage: $0 -u <user-agent>"
+# Author: Haitham Aouati
+# GitHub: github.com/haithamaouati
+
+# Text format
+normal="\e[0m"
+bold="\e[1m"
+faint="\e[2m"
+underlined="\e[4m"
+
+# Check dependencies
+if ! command -v figlet &>/dev/null || ! command -v curl &>/dev/null || ! command -v jq &>/dev/null; then
+    echo -e "Error: figlet, curl and jq are required but not installed. Please install them and try again."
+    exit 1
+fi
+
+print_banner() {
+    clear
+    figlet -f standard "Ualyze"
+    echo -e "Analyze user-agent strings\n"
+    echo -e " Author: Haitham Aouati"
+    echo -e " GitHub: ${underlined}github.com/haithamaouati${normal}\n"
+}
+
+API_URL="https://api.apicagent.com"
+
+show_help() {
+  print_banner
+  echo "Usage: $0 -u <user-agent>"
   echo
   echo "Options:"
   echo "  -u, --ua <user-agent>   Specify a user-agent string to analyze"
