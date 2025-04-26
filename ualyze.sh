@@ -8,25 +8,32 @@ normal="\e[0m"
 bold="\e[1m"
 faint="\e[2m"
 underlined="\e[4m"
+error_color="\e[1;31m"
 
-# Check dependencies
-if ! command -v figlet &>/dev/null || ! command -v curl &>/dev/null || ! command -v jq &>/dev/null; then
-    echo -e "Error: figlet, curl and jq are required but not installed. Please install them and try again."
-    exit 1
-fi
+# Dependencies check
+dependencies=(figlet curl jq)
+for cmd in "${dependencies[@]}"; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo -e "${error_color}Error:${normal} '$cmd' is required but not installed. Please install it and try again." >&2
+        exit 1
+    fi
+done
+
+# Clear the screen
+clear
 
 print_banner() {
-    clear
     figlet -f standard "Ualyze"
     echo -e "Analyze user-agent strings\n"
     echo -e " Author: Haitham Aouati"
     echo -e " GitHub: ${underlined}github.com/haithamaouati${normal}\n"
 }
 
+print_banner
+
 API_URL="https://api.apicagent.com"
 
 show_help() {
-  print_banner
   echo "Usage: $0 -u <user-agent>"
   echo
   echo "Options:"
@@ -36,7 +43,6 @@ show_help() {
 }
 
 analyze_ua() {
-  print_banner
   local ua="$1"
   if [[ -z "$ua" ]]; then
     echo -e "[!] Error: No user-agent string provided.\n"
