@@ -63,4 +63,4 @@ Made with :coffee: by **Haitham Aouati**
 
 ## License
 
-Ualyze is licensed under [Unlicense license](LICENSE)
+Ualyze is licensed under [WTFPL license](LICENSE)
